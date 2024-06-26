@@ -24,6 +24,6 @@
 
 [link-analytics]:https://repo-analytics.github.io/renemarc/dotfiles
 [link-codacy]:https://www.codacy.com/gh/FQ211776/chezmoi/dashboard
-[link-codefactor]:https://www.codefactor.io/repository/github/renemarc/dotfiles
+[link-codefactor]:https://www.codefactor.io/repository/github/FQ211776/chezmoi
 [link-license]:LICENSE.txt
 [link-twitter]:https://twitter.com/intent/tweet?text=Cross-platform%2C%20cross-shell%20%23dotfiles%20using%20%23chezmoi&url=https://github.com/renemarc/dotfiles&via=renemarc&hashtags=Bash,PowerShell,ZSH
