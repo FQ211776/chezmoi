@@ -12,6 +12,9 @@ LICENSE
 README.md
 com.googlecode.iterm2.plist
 
+run_onchange_script_principal.sh
+scripts/
+
 # Ignore non-macOS files.
 {{ if ne .chezmoi.os "darwin" -}}
 dot_config/iterm
