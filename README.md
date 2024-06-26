@@ -6,7 +6,8 @@
 [![CodeFactor rating][badge-codefactor]][link-codefactor]
 [![License][badge-license]][link-license]
 [![Repo analytics][badge-analytics]][link-analytics]
-[![Tweet][badge-twitter]][link-twitter
+[![Tweet][badge-twitter]][link-twitter]
+
 
 
 
