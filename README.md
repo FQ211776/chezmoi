@@ -23,7 +23,7 @@
 [badge-twitter]:https://img.shields.io/twitter/url/http/shields.io.svg?style=social&maxAge=86400
 
 [link-analytics]:https://repo-analytics.github.io/renemarc/dotfiles
-[link-codacy]:https://www.codacy.com/gh/renemarc/dotfiles/dashboard
+[link-codacy]:https://www.codacy.com/gh/FQ211776/chezmoi/dashboard
 [link-codefactor]:https://www.codefactor.io/repository/github/renemarc/dotfiles
 [link-license]:LICENSE.txt
 [link-twitter]:https://twitter.com/intent/tweet?text=Cross-platform%2C%20cross-shell%20%23dotfiles%20using%20%23chezmoi&url=https://github.com/renemarc/dotfiles&via=renemarc&hashtags=Bash,PowerShell,ZSH
