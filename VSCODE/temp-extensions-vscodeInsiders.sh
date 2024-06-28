@@ -1,0 +1,17 @@
+enkia.tokyo-night
+esbenp.prettier-vscode
+foxundermoon.shell-format
+mads-hartmann.bash-ide-vscode
+mrmlnc.vscode-duplicate
+naumovs.color-highlight
+pkief.material-icon-theme
+rebornix.toggle
+robole.file-bunny
+rogalmic.bash-debug
+shakram02.bash-beautify
+ssigwart.trailing-whitespace-fixer
+vspacecode.whichkey
+wayou.vscode-todo-highlight
+whizkydee.material-palenight-theme
+yy0931.gitconfig-lsp
+zhuangtongfa.material-theme
