@@ -29,8 +29,8 @@ cargar_script "logos.sh"
 cargar_script "colorsBashScript.sh"
 cargar_script "menuPrincipal.sh"
 cargar_script "zsh_install.sh"
-cargar_script "apps-desktop.sh"
-
+# cargar_script "instalar_paquetes.sh"
+cargar_script "m3.sh"
 
 
 
@@ -50,40 +50,43 @@ paquetes=(
     "npm" # Repositorio oficial (Node Package Manager)
 )
 
+instalar_paquetes "${paquetes[@]}"
 
-# inicio del script
-logos
+# instalar_paquetes $paquetes
+# instalar_paquetes2 $paquetes
+
+# # inicio del script
+# logos
 
 
-color_echo -c "Este" -b -r "es" -g "un" -w "ejemplo" -o "con" -p "muchos" -w "colores" -y "y negrita"
-display_menu
-logo "Welcome!"
+# color_echo -c "Este" -b -r "es" -g "un" -w "ejemplo" -o "con" -p "muchos" -w "colores" -y "y negrita"
+# display_menu
+# logo "Welcome!"
 
-main() {
-    check_gum
-    check_dialog
-    while :; do
-        display_menu
-        read -rp "Enter your choice: " CHOICE
-        echo
+# main() {
+#     check_gum
+#     check_dialog
+#     while :; do
+#         display_menu
+#         read -rp "Enter your choice: " CHOICE
+#         echo
 
-        case $CHOICE in
-            1) Instalar_paquetes_adicionales ;;
-            2) desde_aur ;;
-            3) Instalar_repositorio ;;
-            4) Instalar_dotfiles ;;
-            5) zsh_ ;;
-            6) fish_ ;;
-            7) desktopApps ;;
-            q) clear && exit ;;
-            *)
-                gum style --foreground 50 "Invalid choice. Please select a valid option."
-                echo
-            ;;
-        esac
-        sleep 1
-    done
-}
+#         case $CHOICE in
+#             1) Instalar_paquetes_adicionales ;;
+#             2) desde_aur ;;
+#             3) Instalar_repositorio ;;
+#             4) Instalar_dotfiles ;;
+#             5) zsh_ ;;
+#             6) fish_ ;;
+#             q) clear && exit ;;
+#             *)
+#                 gum style --foreground 50 "Invalid choice. Please select a valid option."
+#                 echo
+#             ;;
+#         esac
+#         sleep 1
+#     done
+# }
 
-main
-Resto de tu script principal...
+# main
+# Resto de tu script principal...

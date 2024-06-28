@@ -1,0 +1,11 @@
+enkia.tokyo-night
+esbenp.prettier-vscode
+foxundermoon.shell-format
+mads-hartmann.bash-ide-vscode
+mrmlnc.vscode-duplicate
+rebornix.toggle
+rogalmic.bash-debug
+shakram02.bash-beautify
+ssigwart.trailing-whitespace-fixer
+whizkydee.material-palenight-theme
+yy0931.gitconfig-lsp

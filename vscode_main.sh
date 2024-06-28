@@ -23,58 +23,35 @@ cargar_script() {
 }
 
 # Cargar scripts necesarios (ajusta los nombres según tus scripts)
-cargar_script "utilidades.sh"
+cargar_script "utilidades-vscode.sh"
 cargar_script "logo.sh"
 cargar_script "logos.sh"
 cargar_script "colorsBashScript.sh"
 cargar_script "menuPrincipal.sh"
-cargar_script "zsh_install.sh"
-cargar_script "apps-desktop.sh"
 
-
-
-
-# instalar_paquetes alacritty neovim firefox
-
-# instalar_paquetes2 "firefox   # Navegador web \
-# git          # Sistema de control de versiones \
-# nano         # Editor de texto simple"
-
-paquetes=(
-    "ripgrep" \  # Repositorio oficial
-    "lazygit"  \  # AUR
-    "duf" \  # Repositorio oficial (DiskUsage/duf)
-    "bottom" \  # AUR
-    "python" \  # Repositorio oficial
-    "nodejs" \  # Repositorio oficial (Node.js)
-    "npm" # Repositorio oficial (Node Package Manager)
-)
 
 
 # inicio del script
-logos
 
-
-color_echo -c "Este" -b -r "es" -g "un" -w "ejemplo" -o "con" -p "muchos" -w "colores" -y "y negrita"
-display_menu
-logo "Welcome!"
 
 main() {
-    check_gum
+check_gum
     check_dialog
     while :; do
-        display_menu
+        display_menu_vscode
         read -rp "Enter your choice: " CHOICE
         echo
 
         case $CHOICE in
-            1) Instalar_paquetes_adicionales ;;
-            2) desde_aur ;;
-            3) Instalar_repositorio ;;
-            4) Instalar_dotfiles ;;
-            5) zsh_ ;;
-            6) fish_ ;;
-            7) desktopApps ;;
+            1) extension-install-vscode ;;
+            2) extension-install-vscodeInsiders ;;
+            3) extension-list-vscode ;;
+            4) extension-list-vscodeInsiders ;;
+            5) settings_update_vscode ;;
+            6) settings_update_vscodeInsiders ;;
+            7) meld_vscode_sourceOfTruth ;;
+            8) meld_vscodeInsiders_sourceOfTruth ;;
+            9) meld_vscode_installed;;
             q) clear && exit ;;
             *)
                 gum style --foreground 50 "Invalid choice. Please select a valid option."
@@ -86,4 +63,3 @@ main() {
 }
 
 main
-Resto de tu script principal...
