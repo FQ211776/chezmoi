@@ -1,0 +1,288 @@
+#!/usr/bin/env bash
+#  ██████╗ ██╗ ██████╗███████╗    ██╗███╗   ██╗███████╗████████╗ █████╗ ██╗     ██╗     ███████╗██████╗
+#  ██╔══██╗██║██╔════╝██╔════╝    ██║████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██║     ██║     ██╔════╝██╔══██╗
+#  ██████╔╝██║██║     █████╗      ██║██╔██╗ ██║███████╗   ██║   ███████║██║     ██║     █████╗  ██████╔╝
+#  ██╔══██╗██║██║     ██╔══╝      ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██║     ██╔══╝  ██╔══██╗
+#  ██║  ██║██║╚██████╗███████╗    ██║██║ ╚████║███████║   ██║   ██║  ██║███████╗███████╗███████╗██║  ██║
+#  ╚═╝  ╚═╝╚═╝ ╚═════╝╚══════╝    ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
+#   Script to install my dotfiles
+#   Author: z0mbi3
+#   url: https://github.com/gh0stzk
+
+CRE=$(tput setaf 1)
+CYE=$(tput setaf 3)
+CGR=$(tput setaf 2)
+CBL=$(tput setaf 4)
+BLD=$(tput bold)
+CNC=$(tput sgr0)
+
+backup_folder=~/.RiceBackup
+date=$(date +%Y%m%d-%H%M%S)
+
+logo () {
+
+    local text="${1:?}"
+    echo -en "
+	               %%%
+	        %%%%%//%%%%%
+	      %%************%%%
+	  (%%//############*****%%
+	%%%%%**###&&&&&&&&&###**//
+	%%(**##&&&#########&&&##**
+	%%(**##*****#####*****##**%%%
+	%%(**##     *****     ##**
+	   //##   @@**   @@   ##//
+	     ##     **###     ##
+	     #######     #####//
+	       ###**&&&&&**###
+	       &&&         &&&
+	       &&&////   &&
+	          &&//@@@**
+	            ..***
+    z0mbi3 Dotfiles\n\n"
+    printf ' %s [%s%s %s%s %s]%s\n\n' "${CRE}" "${CNC}" "${CYE}" "${text}" "${CNC}" "${CRE}" "${CNC}"
+}
+
+########## ---------- You must not run this as root ---------- ##########
+
+if [ "$(id -u)" = 0 ]; then
+    echo "This script MUST NOT be run as root user."
+    exit 1
+fi
+
+
+
+########## ---------- Welcome ---------- ##########
+clear
+printf '%s%sEste script realizara una instalacion de paquetes y dotfiles personalizados no incluidos por default en los dotfiles del maestro z0mbi3.%s\n\n' "${BLD}" "${CRE}" "${CNC}"
+
+
+########## ---------- Install packages ---------- ##########
+
+
+
+logo "Install packages"
+
+printf "Desea instalar paquetes adicionales? escriba 'n' para saltar esta parte. Si tu respuesta es 'y' Se verificara cuales paquetes estan instalados y cuales no, procediendo a la instalacion si es necesario.\n\n"
+
+while true; do
+    read -rp "Do you want to install custom packages? (y/n): " custom_packages
+    if [[ "$custom_packages" == "y" || "$custom_packages" == "n" ]]; then
+        break
+    else
+        echo "Invalid input. Please enter 'y' or 'n'."
+    fi
+done
+
+if [[ $custom_packages == "y" ]]; then
+logo "Installing needed packages.."
+
+dependencias=(diff-so-fancy geany hub github-cli peco wget eza) 
+
+is_installed() {
+    pacman -Q "$1" &> /dev/null
+}
+
+printf "%s%sChecking for required packages...%s\n" "${BLD}" "${CBL}" "${CNC}"
+	for paquete in "${dependencias[@]}"; do
+		if ! is_installed "$paquete"; then
+			if sudo pacman -S "$paquete" --noconfirm >/dev/null 2>> RiceError.log; then
+				printf "%s%s%s %shas been installed succesfully.%s\n" "${BLD}" "${CYE}" "$paquete" "${CBL}" "${CNC}"
+				sleep 1
+			else
+				printf "%s%s%s %shas not been installed correctly. See %sRiceError.log %sfor more details.%s\n" "${BLD}" "${CYE}" "$paquete" "${CRE}" "${CBL}" "${CRE}" "${CNC}"
+				sleep 1
+			fi
+		else
+			printf '%s%s%s %sis already installed on your system!%s\n' "${BLD}" "${CYE}" "$paquete" "${CGR}" "${CNC}"
+			sleep 1
+		fi
+	done
+
+fi
+
+sleep 2
+clear
+
+
+########## ---------- Backup files ---------- ##########
+
+logo "Backup files"
+
+printf "Desea Actualizar los dotfiles? escriba 'n' para saltar esta parte. Si tu respuesta es 'y' Se hara un respaldo y se actualizaran los dotfiles si es necesario.\n\n"
+
+while true; do
+    read -rp "Do you want to update the custom dotfiles? (y/n): " custom_dotfiles
+    if [[ "$custom_dotfiles" == "y" || "$custom_dotfiles" == "n" ]]; then
+        break
+    else
+        echo "Invalid input. Please enter 'y' or 'n'."
+    fi
+done
+
+if [[ $custom_dotfiles == "y" ]]; then
+
+	printf "\nBackup files will be stored in %s%s%s/.RiceBackup%s \n\n" "${BLD}" "${CRE}" "$HOME" "${CNC}"
+	sleep 10
+
+	if [ -f ~/.gitconfig ]; then
+		if mv ~/.gitconfig "$backup_folder"/.gitconfig_"$date" 2>> RiceError.log; then
+			printf "%s%s.gitconfig file backed up successfully at %s%s/.gitconfig_%s%s\n" "${BLD}" "${CGR}" "${CBL}" "$backup_folder" "${date}" "${CNC}"
+		else
+			printf "%s%sFailed to backup .gitconfig file. See %sRiceError.log%s\n" "${BLD}" "${CRE}" "${CBL}" "${CNC}"
+		fi
+	else
+		printf "%s%sThe file .gitconfig does not exist, %sno backup needed%s\n" "${BLD}" "${CGR}" "${CYE}" "${CNC}"
+	fi
+	
+	if [ -f ~/.config/bspwm/bspwmrc ]; then
+		if mv ~/.config/bspwm/bspwmrc "$backup_folder"/.bspwmrc_"$date" 2>> RiceError.log; then
+			printf "%s%sbspwmrc file backed up successfully at %s%s/.gitconfig_%s%s\n" "${BLD}" "${CGR}" "${CBL}" "$backup_folder" "${date}" "${CNC}"
+		else
+			printf "%s%sFailed to backup bspwmrc file. See %sRiceError.log%s\n" "${BLD}" "${CRE}" "${CBL}" "${CNC}"
+		fi
+	else
+		printf "%s%sThe file bspwmrc does not exist, %sno backup needed%s\n" "${BLD}" "${CGR}" "${CYE}" "${CNC}"
+	fi
+
+	printf "%s%sDone!!%s\n\n" "${BLD}" "${CGR}" "${CNC}"
+	sleep 5
+
+########## ---------- Copy the Rice! ---------- ##########
+
+	logo "Installing dotfiles.."
+	printf "Copying files to respective directories..\n"
+
+	cp -f "$HOME"/dotfiles2/custom/home/.gitconfig "$HOME"
+	cp -f "$HOME"/dotfiles2/custom/config/bspwm/bspwmrc "$HOME"/.config/bspwm/bspwmrc
+	
+	printf "\n\n%s%sFiles copied succesfully!!%s\n" "${BLD}" "${CGR}" "${CNC}"
+
+
+fi
+
+sleep 2
+clear
+
+
+
+########## ---------- Installing `others ---------- ##########
+
+logo "Installing others"
+printf "Desea instalar paquetes adicionales disponibles en AUR? escriba 'n' para saltar esta parte. Si tu respuesta es 'y' Se verificara cuales paquetes estan instalados y cuales no, procediendo a la instalacion con PARU si es necesario.\n\n"
+
+while true; do
+    read -rp "Do you want to update the custom packages availables ir AUR? (y/n): " custom_aur
+    if [[ "$custom_aur" == "y" || "$custom_aur" == "n" ]]; then
+        break
+    else
+        echo "Invalid input. Please enter 'y' or 'n'."
+    fi
+done
+
+if [[ $custom_aur == "y" ]]; then
+
+	logo "installing Flutter, Gitkraken"
+
+# Installing Flutter
+	if command -v flutter >/dev/null 2>&1; then
+		printf "\n%s%sflutter is already installed%s\n" "${BLD}" "${CGR}" "${CNC}"
+	else
+		printf "\n%s%sInstalling flutter, this should take a while!%s\n" "${BLD}" "${CBL}" "${CNC}"
+		paru -S flutter --skipreview --noconfirm
+	fi
+
+
+
+# Installing gitkraken
+	if command -v gitkraken >/dev/null 2>&1; then
+		printf "\n%s%sgitkraken is already installed%s\n" "${BLD}" "${CGR}" "${CNC}"
+	else
+		printf "\n%s%sInstalling gitkraken, this will be fast!%s\n" "${BLD}" "${CBL}" "${CNC}"
+		paru -S gitkraken --skipreview --noconfirm
+	fi
+
+fi
+
+
+
+
+sleep 2
+clear
+
+
+
+########## ---------- Install Python ---------- ##########
+
+
+
+logo "Install python"
+
+printf "Desea instalar paquetes necesarios para un entorno de desarrollo en python? escriba 'n' para saltar esta parte. Si tu respuesta es 'y' Se verificara cuales paquetes estan instalados y cuales no, procediendo a la instalacion si es necesario.\n\n"
+
+while true; do
+    read -rp "Do you want to install Python Dev Workspace tools? (y/n): " python_packages
+    if [[ "$python_packages" == "y" || "$python_packages" == "n" ]]; then
+        break
+    else
+        echo "Invalid input. Please enter 'y' or 'n'."
+    fi
+done
+
+if [[ $python_packages == "y" ]]; then
+logo "Installing needed packages.."
+
+
+dependencias=(
+python \
+python-pip \
+python-virtualenv \
+python-pytest \
+poetry \
+python-flake8-black \
+python-black \
+python-ipdb \
+python-coverage \
+python-sphinx \
+postgresql \
+sqlitebrowser \
+python-django \
+python-flask \
+jupyter-notebook  \
+python-numpy \
+python-pandas \
+python-matplotlib \
+python-scipy \
+python-pynvim \
+ripgrep \
+fd \
+) 
+
+is_installed() {
+    pacman -Q "$1" &> /dev/null
+}
+
+printf "%s%sChecking for required packages...%s\n" "${BLD}" "${CBL}" "${CNC}"
+	for paquete in "${dependencias[@]}"; do
+		if ! is_installed "$paquete"; then
+			if sudo pacman -S "$paquete" --noconfirm >/dev/null 2>> RiceError.log; then
+				printf "%s%s%s %shas been installed succesfully.%s\n" "${BLD}" "${CYE}" "$paquete" "${CBL}" "${CNC}"
+				sleep 1
+			else
+				printf "%s%s%s %shas not been installed correctly. See %sRiceError.log %sfor more details.%s\n" "${BLD}" "${CYE}" "$paquete" "${CRE}" "${CBL}" "${CRE}" "${CNC}"
+				sleep 1
+			fi
+		else
+			printf '%s%s%s %sis already installed on your system!%s\n' "${BLD}" "${CYE}" "$paquete" "${CGR}" "${CNC}"
+			sleep 1
+		fi
+	done
+
+fi
+
+sleep 2
+
+logo "Install is complete"
+
+
+
