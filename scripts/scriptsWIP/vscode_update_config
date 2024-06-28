@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-
-
-# List
-# code-insiders --list-extensions >> vs_code_extensions_list.txt
-# Install
-#cat vs_code_extensions_list.txt | xargs -n 1 code-insiders --install-extension
