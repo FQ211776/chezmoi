@@ -7,20 +7,17 @@ extension-list-vscode() {
 }
 
 extension-list-vscodeInsiders() {
-       logo "Creando listado de Extenciones VSCode Insiders"
+    logo "Creando listado de Extenciones VSCode Insiders"
     rm --f ~/.local/share/chezmoi/VSCODE/temp-extensions-vscodeInsiders.txt
     code --list-extensions >~/.local/share/chezmoi/VSCODE/temp-extensions-vscodeInsiders.txt
-
-
 
 }
 
 extension-install-vscode() {
     logo "Instalando Extenciones en VSCode"
-    cat $HOME/.local/share/chezmoi/VSCODE/extensions.txt | while read extension || [[ -n $extension ]]; do
-        code --install-extension $extension --force
+    cat "$HOME"/.local/share/chezmoi/VSCODE/extensions.txt | while read extension || [[ -n $extension ]]; do
+        code --install-extension "$extension" --force
     done
-
 
 }
 
@@ -49,17 +46,18 @@ settings_update_vscodeInsiders() {
 
 meld_vscode_installed() {
     logo "Comparando extenciones instaladas entre VSCode y VSCode Insiders"
-    meld $HOME/.local/share/chezmoi/VSCODE/temp-extensions-vscode.txt $HOME/.local/share/chezmoi/VSCODE/temp-extensions-vscode-insiders.txt
-    meld file:///home/rob/.config/Code/User/settings.json;file:///home/rob/.config/Code%20-%20Insiders/User/settings.json
-    meld file:///home/rob/.config/Code/User/keybindings.json;file:///home/rob/.config/Code%20-%20Insiders/User/keybindings.json
+    meld "$HOME"/.local/share/chezmoi/VSCODE/temp-extensions-vscode.txt "$HOME"/.local/share/chezmoi/VSCODE/temp-extensions-vscode-insiders.txt
+    meld file:///home/rob/.config/Code/User/settings.json
+    file:///home/rob/.config/Code%20-%20Insiders/User/settings.json
+    meld file:///home/rob/.config/Code/User/keybindings.json
+    file:///home/rob/.config/Code%20-%20Insiders/User/keybindings.json
 }
 
-
-meld_vscode_sourceOfTruth(){
-logo "En proceso"
+meld_vscode_sourceOfTruth() {
+    logo "En proceso"
 }
 
-meld_vscodeInsiders_sourceOfTruth(){
-logo "En proceso"
+meld_vscodeInsiders_sourceOfTruth() {
+    logo "En proceso"
 
 }
