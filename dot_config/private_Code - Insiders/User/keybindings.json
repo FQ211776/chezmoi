@@ -270,5 +270,10 @@
         "key": "escape", // Activa el comando al presionar la tecla Escape
         "command": "notifications.hideToasts", // Comando para ocultar las notificaciones
         "when": "notificationToastsVisible" // Condición: solo se activa cuando hay notificaciones visibles
-    }
+    },
+    {
+        "key": "shift+space",
+        "command": "whichkey.show"
+      },
+
 ]
