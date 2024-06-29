@@ -385,4 +385,11 @@
   ],
   "editor.minimap.autohide": true,
   "workbench.tree.enableStickyScroll": false,
+  // --------------------------------Power Mode
+  "powermode.combo.location": "off",
+  "powermode.enabled": true,
+  "powermode.explosions.duration": 300,
+  "powermode.explosions.size": 5,
+  "powermode.shake.enabled": false,
+  "editor.guides.highlightActiveIndentation": "always",
 }

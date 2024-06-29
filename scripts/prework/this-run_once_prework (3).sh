@@ -54,15 +54,15 @@ Instalar_paquetes_adicionales() {
 
     logo "Instando: git github-cli hub diff-so-fancy gum dialog"
 
-    dependencias=(git github-cli hub diff-so-fancy gum dialog git-delta-git )
+    dependencias=(git github-cli hub diff-so-fancy gum dialog git-delta-git)
 
     is_installed() {
         pacman -Q "$1" &>/dev/null
     }
 
     printf "%s%sChecking for required packages...%s\n" "${BLD}" "${CBL}" "${CNC}"
-   rustup default stable
-	 for paquete in "${dependencias[@]}"; do
+    rustup default stable
+    for paquete in "${dependencias[@]}"; do
         if ! is_installed "$paquete"; then
             if sudo pacman -S "$paquete" --noconfirm >/dev/null 2>>RiceError.log; then
                 printf "%s%s%s %shas been installed succesfully.%s\n" "${BLD}" "${CYE}" "$paquete" "${CBL}" "${CNC}"
@@ -84,7 +84,7 @@ Instalar_paquetes_adicionales() {
 
 Configurar_ssh() {
     Instalar_paquetes_adicionales
-    gh auth login    
+    gh auth login
 }
 
 Clone_gitconfig() {
@@ -113,8 +113,7 @@ Clone_gitconfig() {
     #     xdg-user-dirs-update
     # fi
 
- sleep 2
-
+    sleep 2
 
 }
 
@@ -132,14 +131,14 @@ Configurar_gpg() {
     #gpg --armor --export *** | gh gpg-key add -
     git config -f ~/.gitconfig-local user.name "Roberto Flores"
     git config -f ~/.gitconfig-local user.email fq211776@alumno.udb.edu.sv
-    git config -f ~/.gitconfig-local user.signingkey ``
+    git config -f ~/.gitconfig-local user.signingkey $()
     printf "gpg --armor --export *** | gh gpg-key add -\n"
-    printf "git config -f ~/.gitconfig-local user.signingkey ``\n"
+    printf "git config -f ~/.gitconfig-local user.signingkey $()\n"
     geany "$HOME"/.gitconfig-local
     rm -rf ~/test && mkdir ~/test && cd ~/test && git init && echo "test" >>test && git add test && git commit -m "test" && git log --show-signature && cd .. && rm -rf test
 }
 
-Split_gitconfig(){
+Split_gitconfig() {
     #https://filipe.kiss.ink/multiple-gpg-keys-git/
 
     git config --get meta.isLocalConfig

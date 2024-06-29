@@ -1,0 +1,818 @@
+// Alt + ↑ / ↓ - mover una linea arriba o abajo
+// CTRL+SHIFt+ ↑ / ↓  y luego Alt + ↑ / ↓ - mover un bloque de codigo arriba o abajo
+
+// SHIFT + ALT + up/down - clona una linea para arriba o para abajo
+
+// Ctrl + Alt+ ↑ / ↓ - Crear múltiples cursores para editar
+
+// SHIFT+ALT+right/left - Expand Selection
+
+// CTRL+SHIFT+left - Selecciona todo entre comillas
+
+// SHIFT+k --- trigger documentation popup in vscode
+// CTRL+SHIFT+L - Select all occurrences of the current selection
+// CTRL+F2 - Selecting all occurrences of the current word
+// CTRL+u - anula multi cursor
+// Shift + Alt + A - comenta una parte de una linea o de un bloque de código
+// CTRL + CLICK------ F12 - Saltar a la definición de constante, variable o función
+// ALT F12 - Ojear la definición de una función o variable inline
+// Ctrl + Shift + ' - elimina todas las lineas donde este marcado algo con ctrl+F2 o CTRL+SHIFT+L
+// Ctrl + y - REDO después de un CTRL+Z
+// Ctrl + ` - nueva terminal o mostrarla
+// SHIFT + ALT + w - Emmet - Wrap with abbreviation
+//  Ctrl + Alt+ u / l - Pasar de minúsculas a mayúsculas y viceversa
+// SHIFT+F12 -- SHIFT+ALT+F12 - ver todas las referencias
+
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "shift+space",
+    "command": "whichkey.show"
+  },
+
+  /// el nirvana
+  {
+    "key": "ctrl+shift+right",
+    "command": "extension.selectDoubleQuote",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+f1",
+    "command": "editor.action.selectToBracket"
+  },
+  /// fin de el nirvana
+  { "key": "f9", "command": "-sortLines.sortLines", "when": "editorTextFocus" },
+  {
+    "key": "ctrl+alt+v",
+    "command": "toggleVim"
+  },
+  // Trigger vspacecode in empty editor group
+  {
+    "key": "space",
+    "command": "whichkey.show",
+    "when": "activeEditorGroupEmpty && focusedView == '' && !whichkeyActive && !inputFocus"
+  },
+  // Trigger vspacecode when sidebar is in focus
+  {
+    "key": "space",
+    "command": "whichkey.show",
+    "when": "sideBarFocus && !inputFocus && !whichkeyActive"
+  },
+  // Keybindings required for edamagit
+  // https://github.com/kahole/edamagit#vim-support-vscodevim
+  // Cannot be added to package.json because keybinding replacements
+  // {
+  //   "key": "tab",
+  //   "command": "extension.vim_tab",
+  //   "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert' && editorLangId != 'magit'"
+  // },
+  // {
+  //   "key": "tab",
+  //   "command": "-extension.vim_tab",
+  //   "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
+  // },
+  {
+    "key": "x",
+    "command": "magit.discard-at-point",
+    "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
+  },
+  {
+    "key": "k",
+    "command": "-magit.discard-at-point"
+  },
+  {
+    "key": "-",
+    "command": "magit.reverse-at-point",
+    "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
+  },
+  {
+    "key": "v",
+    "command": "-magit.reverse-at-point"
+  },
+  {
+    "key": "shift+-",
+    "command": "magit.reverting",
+    "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
+  },
+  {
+    "key": "shift+v",
+    "command": "-magit.reverting"
+  },
+  {
+    "key": "shift+o",
+    "command": "magit.resetting",
+    "when": "editorTextFocus && editorLangId == 'magit' && vim.mode =~ /^(?!SearchInProgressMode|CommandlineInProgress).*$/"
+  },
+  {
+    "key": "shift+x",
+    "command": "-magit.resetting"
+  },
+  {
+    "key": "x",
+    "command": "-magit.reset-mixed"
+  },
+  {
+    "key": "ctrl+u x",
+    "command": "-magit.reset-hard"
+  },
+  // Extra ref menu support for edamagit with the key "y"
+  // Cannot be added to package.json because keybinding replacements
+  {
+    "key": "y",
+    "command": "-magit.show-refs"
+  },
+  {
+    "key": "y",
+    "command": "vspacecode.showMagitRefMenu",
+    "when": "editorTextFocus && editorLangId == 'magit' && vim.mode == 'Normal'"
+  },
+  // Easy navigation in quick open/QuickPick
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+  // Easy navigation in suggestion/intellisense
+  // Cannot be added to package.json because of conflict with vim's default bindings
+  {
+    "key": "ctrl+j",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "acceptSelectedSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  // Easy navigation in parameter hint (i.e. traverse the hints when there's multiple overload for one method)
+  // Cannot be added to package.json because of conflict with vim's default bindings
+  {
+    "key": "ctrl+j",
+    "command": "showNextParameterHint",
+    "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "showPrevParameterHint",
+    "when": "editorFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+  },
+  // Easy navigation in code action
+  {
+    "key": "ctrl+j",
+    "command": "selectNextCodeAction",
+    "when": "codeActionMenuVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "selectPrevCodeAction",
+    "when": "codeActionMenuVisible"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "acceptSelectedCodeAction",
+    "when": "codeActionMenuVisible"
+  },
+  // Add ctrl+h/l to navigate in file browser
+  {
+    "key": "ctrl+h",
+    "command": "file-browser.stepOut",
+    "when": "inFileBrowser"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "file-browser.stepIn",
+    "when": "inFileBrowser"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "-workbench.action.files.openFile"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "filebunny.openFolder"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "-workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "filebunny.createFile"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.terminal.killEditor",
+    "when": "terminalEditorFocus && terminalHasBeenCreated && resourceScheme == 'vscode-terminal' || terminalEditorFocus && terminalProcessSupported && resourceScheme == 'vscode-terminal'"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.terminal.killEditor",
+    "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated && resourceScheme == 'vscode-terminal' || terminalEditorFocus && terminalFocus && terminalProcessSupported && resourceScheme == 'vscode-terminal'"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "-workbench.action.terminal.paste",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "workbench.action.terminal.paste",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+alt+pageup",
+    "command": "-workbench.action.terminal.scrollUp",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "pageup",
+    "command": "workbench.action.terminal.scrollUp",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+alt+pagedown",
+    "command": "-workbench.action.terminal.scrollDown",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "pagedown",
+    "command": "workbench.action.terminal.scrollDown",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+k v",
+    "command": "-preview.showPreviewToSide",
+    "when": "!notebookEditorFocused && !terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "markdown.showPreviewToSide",
+    "when": "editorTextFocus && editorLangId == markdown"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.terminal.new"
+  },
+  {
+    "key": "ctrl+shift+oem_3",
+    "command": "-workbench.action.terminal.new"
+  },
+  {
+    "key": "pageup",
+    "command": "workbench.action.terminal.scrollUp",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+alt+pageup",
+    "command": "-workbench.action.terminal.scrollUp",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "pagedown",
+    "command": "workbench.action.terminal.scrollDown",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+alt+pagedown",
+    "command": "-workbench.action.terminal.scrollDown",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+q",
+    "command": "marky-edit.toggleQuote",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+c",
+    "command": "marky-edit.toggleInlineCode",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "marky-edit.toggleCodeBlock",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+[",
+    "command": "marky-edit.toggleUnorderedList",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+]",
+    "command": "marky-edit.toggleOrderedList",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+h",
+    "command": "marky-edit.toggleHorizontalRule",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "marky-edit.toggleLink",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "marky-edit.toggleImage",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+1",
+    "command": "marky-edit.toggleHeading1",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+2",
+    "command": "marky-edit.toggleHeading2",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+3",
+    "command": "marky-edit.toggleHeading3",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+4",
+    "command": "marky-edit.toggleHeading4",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+5",
+    "command": "marky-edit.toggleHeading5",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+6",
+    "command": "marky-edit.toggleHeading6",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "marky-edit.toggleDelete",
+    "when": "editorTextFocus && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == markdown",
+    "args": {
+      "langId": "markdown",
+      "name": "Insert table"
+    }
+  },
+  {
+    "key": "ctrl+shift+x",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == markdown",
+    "args": {
+      "langId": "markdown",
+      "name": "Insert task list"
+    }
+  },
+  {
+    "key": "ctrl+p",
+    "command": "-workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "filebunny.createFile"
+  },
+  {
+    "key": "Left",
+    "command": "-filebunny.back",
+    "when": "inFileBunny"
+  },
+  {
+    "key": "Shift+Tab",
+    "command": "filebunny.back",
+    "when": "inFileBunny"
+  },
+  {
+    "key": "Right",
+    "command": "-filebunny.next",
+    "when": "inFileBunny"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "-workbench.action.files.openFile"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "filebunny.openFolder"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "-workbench.action.terminal.paste",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "workbench.action.terminal.paste",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.terminal.killEditor",
+    "when": "terminalEditorFocus && terminalHasBeenCreated && resourceScheme == 'vscode-terminal' || terminalEditorFocus && terminalProcessSupported && resourceScheme == 'vscode-terminal'"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.terminal.killEditor",
+    "when": "terminalEditorFocus && terminalFocus && terminalHasBeenCreated && resourceScheme == 'vscode-terminal' || terminalEditorFocus && terminalFocus && terminalProcessSupported && resourceScheme == 'vscode-terminal'"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+d",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+d",
+    "command": "-editor.action.addSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+shift+c",
+    "command": "-workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
+  },
+  {
+    // Switch focus to panel
+    "key": "ctrl+k",
+    "command": "workbench.action.focusPanel"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "-expandLineSelection",
+    "when": "textInputFocus"
+  },
+  {
+    // Switch focus to active editor
+    "key": "ctrl+l",
+    "command": "workbench.action.focusActiveEditorGroup"
+  },
+  {
+    // I want a shortcut to navigate to the next panel view. In the screenshot below, I want to navigate from the Terminal to Problems
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextPanelView",
+    "when": "panelFocus"
+  },
+  {
+    // mostrar WICHKEY MENU
+    "key": "ctrl+f9",
+    "command": "workbench.action.quickOpen",
+    "args": ">bunny "
+  },
+  {
+    // ignora CTRL-F en modo vim
+    "key": "ctrl+f",
+    "command": "-vscode-neovim.ctrl-f",
+    "when": "editorTextFocus && neovim.ctrlKeysNormal && neovim.init && neovim.mode != 'insert'"
+  },
+  {
+    // How to trigger documentation popup in vscode
+    "key": "shift+k",
+    "command": "editor.action.showHover",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+k ctrl+i",
+    "command": "-editor.action.showHover",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+tab",
+    "command": "-acceptAlternativeSelectedSuggestion",
+    "when": "suggestWidgetVisible && textInputFocus && textInputFocus"
+  },
+  ////////////////////
+  {
+    // mostrar ocultar el panel
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.togglePanel"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-workbench.action.togglePanel"
+  },
+  // Place your key bindings in this file to override the defaultsauto[]
+  {
+    "key": "shift+ctrl+e",
+    "command": "actions.findWithSelection"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-actions.findWithSelection"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "workbench.view.explorer"
+  },
+  {
+    "key": "shift+ctrl+e",
+    "command": "-workbench.view.explorer"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "enter",
+    "command": "-renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "j",
+    "command": "list.focusDown",
+    "when": "listFocus && explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "list.focusUp",
+    "when": "listFocus && explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "selectNextSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenNavigateNext",
+    "when": "inQuickOpen"
+  },
+  // {
+  //   "key": "tab",
+  //   "command": "selectNextSuggestion",
+  //   "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  // },
+  // {
+  //   "key": "tab",
+  //   "command": "workbench.action.quickOpenNavigateNext",
+  //   "when": "inQuickOpen"
+  // },
+  {
+    "key": "shit+tab",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
+    "key": "shift+tab",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  },
+  {
+    "key": "shift+tab",
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "enter",
+    "command": "list.select",
+    "when": "explorerViewletVisible && filesExplorerFocus"
+  },
+  {
+    "key": "l",
+    "command": "list.select",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "o",
+    "command": "list.toggleExpand",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "h",
+    "command": "list.collapse",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+a",
+    "command": "explorer.newFolder",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+;",
+    "command": "insertPrevSuggestion",
+    "when": "hasOtherSuggestions && textInputFocus && textInputFocus && !inSnippetMode && !suggestWidgetVisible && config.editor.tabCompletion == 'on'"
+  },
+  {
+    "key": "ctrl+l",
+    "when": "sideBarFocus",
+    "command": "workbench.action.focusActiveEditorGroup"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.terminal.focus",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-editor.action.insertLineAfter",
+    "when": "editorTextFocus && neovim.ctrlKeysInsert && !neovim.recording && neovim.mode == 'insert'"
+  },
+  {
+    "key": "alt+j",
+    "command": "workbench.action.terminal.focus",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.togglePanel"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-workbench.action.togglePanel"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.navigateDown"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.navigateUp"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight"
+  },
+  // Quick Navigation for diff view
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.compareEditor.focusSecondarySide",
+    "when": "isInDiffEditor && !isInDiffLeftEditor"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft",
+    "when": "isInDiffEditor && isInDiffLeftEditor"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.compareEditor.focusPrimarySide",
+    "when": "isInDiffEditor && isInDiffLeftEditor"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight",
+    "when": "isInDiffEditor && !isInDiffLeftEditor"
+  },
+  ///////////////////////////
+  {
+    // replace
+    "key": "ctrl+alt+f",
+    "command": "editor.action.startFindReplaceAction",
+    "when": "editorFocus || editorIsOpen"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "-editor.action.startFindReplaceAction",
+    "when": "editorFocus || editorIsOpen"
+  },
+  {
+    "key": "ctrl+shift+'",
+    "command": "editor.action.deleteLines",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "-editor.action.deleteLines",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+alt+w",
+    "command": "editor.emmet.action.wrapWithAbbreviation"
+  },
+  {
+    "key": "ctrl+f6",
+    "command": "workbench.action.closeAllEditors"
+  },
+  {
+    "key": "ctrl+k ctrl+w",
+    "command": "-workbench.action.closeAllEditors"
+  },
+  {
+    "key": "ctrl+k ctrl+shift+w",
+    "command": "-workbench.action.closeAllGroups"
+  },
+  {
+    "key": "ctrl+f7",
+    "command": "workbench.action.closeEditorsInGroup"
+  },
+  {
+    "key": "ctrl+k w",
+    "command": "-workbench.action.closeEditorsInGroup"
+  },
+  {
+    "key": "ctrl+alt+u",
+    "command": "editor.action.transformToUppercase"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "-bookmarks.jumpToNext",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "-turboConsoleLog.displayLogMessage"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "editor.action.transformToLowercase"
+  },
+  {
+    "key": "shift+d",
+    "command": "workbench.action.toggleActivityBarVisibility"
+  },
+  {
+    "key": "ctrl+alt+k",
+    "command": "-code-runner.runCustomCommand"
+  },
+  {
+    "key": "ctrl+shift+/",
+    "command": "editor.action.selectToBracket"
+  },
+  {
+    "key": "ctrl+k shift+'",
+    "command": "-extension.selectDoubleQuote",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+shift+right",
+    "command": "-cursorWordEndRightSelect",
+    "when": "textInputFocus && !accessibilityModeEnabled"
+  },
+  {
+    "key": "ctrl+pausebreak",
+    "command": "outline.focus"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "-workbench.action.files.openFolderViaWorkspace",
+    "when": "!openFolderWorkspaceSupport && workbenchState == 'workspace'"
+  },
+  {
+    "key": "ctrl+f1",
+    "command": "-PowerShell.ShowHelp",
+    "when": "editorTextFocus && editorLangId == 'powershell'"
+  }
+]
+
+///////////////////////////
+///////////////////////////

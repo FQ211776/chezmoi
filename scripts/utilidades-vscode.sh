@@ -3,13 +3,13 @@
 extension-list-vscode() {
     logo "Creando listado de Extenciones VSCode"
     rm --f ~/.local/share/chezmoi/VSCODE/temp-extensions-vscode.txt
-    code --list-extensions >~/.local/share/chezmoi/VSCODE/temp-extensions-vscode.txt
+    code --list-extensions >~/.local/share/chezmoi/VSCODE/temp-extensions-vscode.sh
 }
 
 extension-list-vscodeInsiders() {
     logo "Creando listado de Extenciones VSCode Insiders"
     rm --f ~/.local/share/chezmoi/VSCODE/temp-extensions-vscodeInsiders.txt
-    code --list-extensions >~/.local/share/chezmoi/VSCODE/temp-extensions-vscodeInsiders.txt
+    code-insiders --list-extensions >~/.local/share/chezmoi/VSCODE/temp-extensions-vscodeInsiders.sh
 
 }
 
