@@ -1,15 +1,20 @@
-# -*-mode:gitignore-*- vim:ft=gitignore
+# -- Misc ----------------------------------------------------------------------
 
-# ~/.local/share/chezmoi/.gitignore
-# =============================================================================
-# Used by Git to determine the files and directories to ignore in this project.
-#
-# This list of globs defines repository-specific exclusions.
-# See https://git-scm.com/docs/gitignore
+.cfg
+.config/.cfg
 
-.DS_Store
-*.gz
-dot_config/powershell/Modules
-dot_oh-my-zsh
-dot_vim_runtime
-node_modules
+# -- Vim -----------------------------------------------------------------------
+
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+[._]*.un~
+.netrwhist
+.vim
+
+# -- PYTHON --------------------------------------------------------------------
+
+.venv
+venv
