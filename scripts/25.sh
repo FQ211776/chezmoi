@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ruta al disco duro externo (reemplaza con la ruta correcta)
-destino="/run/media/workspace/Backup/b"
+destino="/run/media/workspace/Backup/"
 
 # Nombre de la carpeta de respaldo (opcional)
 carpeta_respaldo="respaldo_home_$(date +%Y-%m-%d)"
